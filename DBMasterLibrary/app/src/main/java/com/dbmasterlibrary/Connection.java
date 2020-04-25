@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class Connection {
     // http://54.180.95.198:8081/
-    // id pw
+    // id pw 123
     public void request(String urlStr) {
         StringBuilder output = new StringBuilder();
 
