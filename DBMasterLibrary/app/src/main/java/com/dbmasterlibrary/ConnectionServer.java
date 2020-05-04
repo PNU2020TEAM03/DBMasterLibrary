@@ -14,7 +14,7 @@ public class ConnectionServer {
     // 서버에 사용자 id, pw 전송 후 응답 받음 (응답 결과 확인 필요)
     public void requestConnection(String userId, String userPw) {
         StringBuilder output = new StringBuilder();
-        final String urlStr = "http://54.180.95.198:8081/";
+        final String urlStr = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         try {
             URL url = new URL(urlStr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -42,6 +42,7 @@ public class ConnectionServer {
 
 
                 int resCode = conn.getResponseCode(); // 응답코드
+
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream())); // 서버에서 응답받기
 
