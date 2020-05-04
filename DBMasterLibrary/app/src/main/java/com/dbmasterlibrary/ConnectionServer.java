@@ -8,11 +8,51 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ConnectionServer {
     // 서버에 사용자 id, pw 전송 후 응답 받음 (응답 결과 확인 필요)
     public void requestConnection(String userId, String userPw) {
+
+        /*
+        // MainActivity에서 테스트한 코드  / 라이브러리에 맞게 변경 필요
+        // Instantiate the RequestQueue.
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://www.google.com";
+        //"http://3.34.44.106:8080/";
+        // Request a string response from the provided URL.
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        textView.setText("Response is: " + response.substring(0, 500));
+                        System.out.println(response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textView.setText("That didn't work!");
+                System.out.println(error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", "a");
+                params.put("pw", "b");
+                return params;
+
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }*/
+
+        
+        /*
         StringBuilder output = new StringBuilder();
         final String urlStr = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         try {
@@ -62,7 +102,7 @@ public class ConnectionServer {
             Log.d("예외 발생 : ", "Exception: " + ex.toString());
         }
         Log.d("Log", "result: " + output.toString());
-
+*/
     }
 
 
