@@ -47,13 +47,15 @@ public class ConnectionServer {
             RequestBody formBody = new FormBody.Builder()
                     .add("name", userId)
                     .add("pw", userPw)
-                    //.addEncoded("Id", userId)
-                    //.addEncoded("Pw", userPw)
                     .build();
 
             Request request = new Request.Builder()
                     .url(baseUrl + strApi)
-                    .post(formBody)
+                    //.post(formBody)
+                    //status":415,"error":"Unsupported Media Type
+                    //Content type 'application/x-www-form-urlencoded;charset=UTF-8'
+                    //오류 해결을 위해 "application/json"으로 변경
+                    .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(formBody)))
                     .build();
 
             client.newCall(request).enqueue(connectionRequestCallback);
