@@ -7,15 +7,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,25 +29,42 @@ public class ConnectionServer {
             return null;
         }
 
-        public void connectionRequest(String userId, String userPw){
+        public void connectionRequest(String userId, String userPw) throws JSONException {
             OkHttpClient client = new OkHttpClient();
 
             String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
             String strApi = "/v1/connection/check";
+/*
+            final MediaType JSON
+                    = MediaType.parse("application/json; charset=utf-8");
 
+            JSONObject json = new JSONObject();
+            json.put("name", userId);
+            json.put("pw", userPw);
 
+            RequestBody formBody = RequestBody.create(JSON, json.toString());
+*/
+
+            final JSONObject object = new JSONObject();
+            object.put("name", "wooyoung");
+            object.put("pw", "1q2w3e4r!");
+
+            /*
             RequestBody formBody = new FormBody.Builder()
-                    .add("name", userId)
-                    .add("pw", userPw)
+                    .add("name", "wooyoung")
+                    .add("pw", "1q2w3e4r!")
                     .build();
+            */
 
             Request request = new Request.Builder()
                     .url(baseUrl + strApi)
+                    //.url("https://api.androidhive.info/contacts/")
                     //.post(formBody)
                     //status":415,"error":"Unsupported Media Type
                     //Content type 'application/x-www-form-urlencoded;charset=UTF-8'
                     //오류 해결을 위해 "application/json"으로 변경
-                    .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(formBody)))
+                    //.post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(formBody)))
+                    .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
                     .build();
 
             client.newCall(request).enqueue(connectionRequestCallback);
@@ -64,14 +73,36 @@ public class ConnectionServer {
         private Callback connectionRequestCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("TEST", "ERROR Message : " + e.getMessage());
+                Log.d("TEST1", "ERROR Message : " + e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseData = response.body().string();
+                //Log.d("TEST2", "responseData : " + responseData);
 
-                Log.d("TEST", "responseDatae : " + responseData);
+                // json 형식으로 받기 테스트 코드
+                // json 테스트 사이트 https://api.androidhive.info/contacts/
+                try {
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    //Log.d("TEST3", "responseData : " + jsonObject);
+
+                    Log.d("TEST4", "responseData : " + jsonObject.toString());
+                    /*
+                    Log.d("TEST5", "responseData : " + jsonObject.getString("contacts"));
+                    JSONArray jsonarray = jsonObject.getJSONArray("contacts");
+                    for(int i = 0; i < jsonarray.length(); i++) {
+                        JSONObject contactObject = jsonarray.getJSONObject(i);
+                        Log.d("json", "id : " + contactObject.getString("id"));
+                        Log.d("json", "name : " + contactObject.getString("name"));
+                        Log.d("json", "email : " + contactObject.getString("email"));
+                    }*/
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //Log.d("TEST6", "responseData : " + responseData);
             }
         };
 
