@@ -45,7 +45,7 @@ public class ConnectionServer {
         // false = 0  true = 1
         int idCheck = 0;
         int conCheck = 0;
-        Log.d("test@@@@@@@", "result: " + jsonObject.getString("connectionValid"));
+
         if (jsonObject.getString("idValid").equals("available")) {
             idCheck = 1;
         }
