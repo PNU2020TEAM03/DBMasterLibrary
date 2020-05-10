@@ -70,7 +70,7 @@ public class ConnectionServer {
         return result;
     }
 
-    public String creatTable(String name, String tableName, String fieldInfo) throws JSONException, IOException {
+    public String createTable(String name, String tableName, String fieldInfo) throws JSONException, IOException {
         String result = null;
 
         OkHttpClient client = new OkHttpClient();
