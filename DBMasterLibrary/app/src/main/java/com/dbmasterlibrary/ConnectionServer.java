@@ -70,4 +70,25 @@ public class ConnectionServer {
         return result;
     }
 
+    public String creatTable(String name, String tableName, String fieldInfo) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0/";
+        String strApi = "v1/table/create";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", name);
+        object.put("tableName", tableName);
+        object.put("fieldInfo", fieldInfo);
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+        return result;
+    }
+
 }
