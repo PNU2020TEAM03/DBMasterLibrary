@@ -16,6 +16,7 @@ import okhttp3.Response;
 
 public class ConnectionServer {
 
+    // DB서버 연결 확인
     public String connectionRequest(String userId, String userPw) throws JSONException, IOException {
         String result = null;
 
@@ -70,6 +71,7 @@ public class ConnectionServer {
         return result;
     }
 
+    // 데이터베이스 테이블 생성
     public String createTable(String name, String tableName, String fieldInfo) throws JSONException, IOException {
         String result = null;
 
