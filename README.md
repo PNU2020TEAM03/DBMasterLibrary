@@ -15,8 +15,8 @@
 
 **입력 값**
 
-* 사용자 ID
-* 사용자 PassWord
+* 사용자 ID (Srting)
+* 사용자 PassWord (Srting)
 
 > 사용법
 
