@@ -43,28 +43,16 @@ public class ConnectionServer {
         //받아온 body를  json 객체로 변환
         JSONObject jsonObject = new JSONObject(responseDataString);
 
-        // false = 0  true = 1
-        int idCheck = 0;
-        int conCheck = 0;
-
-        if (jsonObject.getString("idValid").equals("available")) {
-            idCheck = 1;
-        }
-        if (jsonObject.getString("connectionValid").equals("available")) {
-
-            conCheck = 1;
-        }
-
         // id는 맞았는데 비밀번호 틀린경우
-        if (idCheck == 1 && conCheck == 0) {
+        if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("unavailable")) {
             result = "Wrong PW";
         }
         // id, pw 둘다 틀린경우
-        if (idCheck == 0 && conCheck == 0) {
+        if (jsonObject.getString("idValid").equals("unavailable") && jsonObject.getString("connectionValid").equals("unavailable")) {
             result = "Wrong ID";
         }
         // 연결 가능한 경우
-        if (idCheck == 1 && conCheck == 1) {
+        if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("available")) {
             result = "Connection Success";
         }
 
