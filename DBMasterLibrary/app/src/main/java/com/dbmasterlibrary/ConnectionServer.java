@@ -88,6 +88,22 @@ public class ConnectionServer {
                 .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
                 .build();
 
+        // 서버 결과 받아오기
+        Response response = client.newCall(request).execute();
+
+        // 받아온 결과에서 body를 String 으로 변환
+        String responseDataString = response.body().string();
+
+        //받아온 body를  json 객체로 변환
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+        if (jsonObject.getString("result").equals("E01")) {
+            result = "table already exists";
+        }
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "create success";
+        }
+
         return result;
     }
 
