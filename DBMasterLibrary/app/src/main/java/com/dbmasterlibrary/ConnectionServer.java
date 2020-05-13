@@ -129,8 +129,9 @@ public class ConnectionServer {
         return result;
     }
 
-    public String getAllTables(String dbName) throws JSONException, IOException {
-        String result = null;
+    public ArrayList<String> getAllTables(String dbName) throws JSONException, IOException {
+        //String result = null;
+        ArrayList<String> result = new ArrayList<>();
         OkHttpClient client = new OkHttpClient();
 
         String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
@@ -153,17 +154,20 @@ public class ConnectionServer {
         JSONObject jsonObject = new JSONObject(responseToString);
         JSONArray jsonArray = jsonObject.getJSONArray("value");
 
-
+        String resultMessage = null;
         if(jsonObject.getString("value").isEmpty()) {
-            result = "No existing table";
+            resultMessage = "No existing table";
+            result.add(resultMessage);
         }
         else {
-            result = jsonObject.getString("value");
+            //result = jsonObject.getString("value");
+            for(int i=0; i<jsonArray.length(); i++) {
+                result.add(jsonArray.getString(i));
+            }
 
         }
-        
+
         return result;
     }
-
 
 }
