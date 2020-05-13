@@ -14,7 +14,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class ConnectionServer {
+public class DBMasterLibrary {
 
     // DB서버 연결 확인
     public String connectionRequest(String userId, String userPw) throws JSONException, IOException {
