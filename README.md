@@ -128,3 +128,39 @@
 
 
 ----
+## 아이디 중복 확인 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+
+
+**입력 값**
+
+* 사용자 아이디 (String)
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary ();
+
+    String userId = "uuzaza";
+    
+    dbMasterLibrary .checkId(userId);
+
+
+**응답 결과**
+  
+
+>사용 가능한 ID인 경우
+    
+
+    available
+
+
+>서버에 ID가 이미 존재하는 경우
+
+
+    duplicate
+
+
+----
