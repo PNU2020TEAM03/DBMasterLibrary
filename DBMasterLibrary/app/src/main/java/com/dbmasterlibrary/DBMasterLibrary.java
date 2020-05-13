@@ -206,4 +206,39 @@ public class DBMasterLibrary {
         return result;
     }
 
+
+    public String getTableInfo(String tableName, String userId) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
+        String strApi = "/v1/table/get-info";
+
+        final JSONObject object = new JSONObject();
+        object.put("tableName", tableName);
+        object.put("name", userId);
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 테이블 정보 받기 성공
+        if (jsonObject.getString("result").equals("S01")) {
+            result = jsonObject.getString("value");
+        }
+        // 테이블 정보 받기 실패
+        if (jsonObject.getString("result").equals("E01")) {
+            result = "failure";
+        }
+
+        return result;
+    }
+
 }
