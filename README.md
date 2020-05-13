@@ -204,3 +204,45 @@
 
 
     No existing table
+    
+-----
+
+# 테이블 정보를 받는 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 지정하는 테이블의 정보를 받아옵니다.
+
+**입력 값**
+
+* 테이블 이름 (String)
+* 사용자 아이디 (String)
+
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary ();
+
+    String tableName= "test1";
+    String userId = "uuzaza";
+    
+    dbMasterLibrary .getTableInfo(tableName, userId );
+
+
+**응답 결과**
+  
+
+>테이블 정보를 받아온 경우
+    
+
+    [{"columnName":"sno","datatype":"4","columnsize":"10","decimaldigits":null},{"columnName":"name","datatype":"1","columnsize":"10","decimaldigits":null}]
+
+
+>테이블 정보를 받아오는데 실패한 경우
+
+
+    failure
+
+
+----
