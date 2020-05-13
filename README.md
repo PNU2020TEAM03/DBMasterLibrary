@@ -20,8 +20,8 @@
 
 > 사용법
 
-    ConnectionServer connectionServer = new ConnectionServer();
-    connectionServer.connectionRequest("userId", "userPw");
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+    dbMasterLibrary.connectionRequest("userId", "userPw");
 
 
 
