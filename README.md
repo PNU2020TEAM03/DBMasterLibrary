@@ -164,3 +164,43 @@
 
 
 ----
+
+## 테이블 모든 이름 조회 함수
+
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+**입력 값**
+
+* 사용자 아이디 (String)
+
+**사용 방법**
+
+    DBMasterLibrary dbMaster = new DBMasterLibrary();
+    String userId = "uuzaza";
+
+>전체 테이블 목록 조회
+
+    dbMaster.getAllTables(userId);
+
+> 특정 index 테이블 조회
+
+    int index = 1;
+    dbMaster.getAllTables(userId).get(index);
+
+**응답 결과**
+  
+
+>전체 테이블 목록 조회 성공
+    
+
+    [test1, test2, test2Table, test2Table2, test2Table3]
+
+>특정 index 테이블 조회
+
+    test2
+
+
+>테이블 이름이 이미 존재하는 경우
+
+
+    No existing table
