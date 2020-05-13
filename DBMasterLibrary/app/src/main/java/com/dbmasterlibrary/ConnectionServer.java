@@ -1,9 +1,11 @@
 package com.dbmasterlibrary;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -126,5 +128,42 @@ public class ConnectionServer {
 
         return result;
     }
+
+    public String getAllTables(String dbName) throws JSONException, IOException {
+        String result = null;
+        OkHttpClient client = new OkHttpClient();
+
+        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
+        String strApi = "/v1/table/all-tables";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", dbName);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+
+        String responseToString = response.body().string();
+
+        JSONObject jsonObject = new JSONObject(responseToString);
+        JSONArray jsonArray = jsonObject.getJSONArray("value");
+
+
+        if(jsonObject.getString("value").isEmpty()) {
+            result = "No existing table";
+        }
+        else {
+            result = jsonObject.getString("value");
+
+        }
+        
+        return result;
+    }
+
 
 }
