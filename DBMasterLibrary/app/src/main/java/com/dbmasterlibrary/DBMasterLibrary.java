@@ -94,6 +94,7 @@ public class DBMasterLibrary {
         return result;
     }
 
+    // 회원가입
     public String signUp(String userId, String userPw) throws JSONException, IOException {
         String result = null;
 
@@ -124,6 +125,41 @@ public class DBMasterLibrary {
         // 회원가입에 실패한 경우
         if (jsonObject.getString("result").equals("E01") ) {
             result = "failure : Duplicate ID ";
+        }
+
+        return result;
+    }
+
+    // 아이디 중복 확인
+    public String checkId(String userId) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
+        String strApi = "/v1/sign-up/check-name";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", userId);
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 사용가능한 ID인 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "available";
+        }
+        // 입력한 ID가 이미 서버에 있는 경우
+        if (jsonObject.getString("result").equals("E01")) {
+            result = "duplicate";
         }
 
         return result;
