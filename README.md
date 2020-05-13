@@ -104,12 +104,12 @@
 
 > 사용 방법
 
-    ConnectionServer connectionServer = new ConnectionServer();
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
 
     String userId = "uuzaza";
     String userPw = "test2Table3";
     
-    connectionServer.signUp(userId , userPw);
+    dbMasterLibrary.signUp(userId , userPw);
 
 
 **응답 결과**
