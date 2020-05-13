@@ -63,13 +63,13 @@
 
 > 사용 방법
 
-    ConnectionServer connectionServer = new ConnectionServer();
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
 
     String name = "uuzaza";
     String tableName = "test2Table3";
     String fieldInfo = "sno int(11) NOT NULL, name char(10) DEFAULT NULL, PRIMARY KEY (sno)";
 
-    connectionServer.createTable(name, tableName, fieldInfo);
+    dbMasterLibrary.createTable(name, tableName, fieldInfo);
 
 
 **응답 결과**
