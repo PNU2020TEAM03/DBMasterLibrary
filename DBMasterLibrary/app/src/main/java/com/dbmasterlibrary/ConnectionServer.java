@@ -92,4 +92,39 @@ public class ConnectionServer {
         return result;
     }
 
+    public String signUp(String userId, String userPw) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
+        String strApi = "/v1/sign-up/request";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", userId);
+        object.put("pw", userPw);
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 회원가입을 성공한 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "success";
+        }
+        // 회원가입에 실패한 경우
+        if (jsonObject.getString("result").equals("E01") ) {
+            result = "failure : Duplicate ID ";
+        }
+
+        return result;
+    }
+
 }
