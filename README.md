@@ -329,3 +329,52 @@
 
 
 ----
+
+# 테이블 데이터 갱신 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 지정하는 테이블의 데이터를 갱신합니다.
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+* 기본키 이름 (String)
+* 기본키 값 (String)
+* 업데이트 열 이름 (String)
+* 업데이트 값 (String)
+
+
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary ();
+
+    String userId = "uuzaza";
+    String tableName= "test1";
+    String primary_key_name = "sno";
+    String primary_key_value = "1";
+    String update_column_name = "name";
+    String update_value = "'업데이트적용'";
+    
+    dbMasterLibrary.tableUpdate(userId, tableName, primary_key_name, primary_key_value, update_column_name, update_value);
+
+
+**응답 결과**
+  
+
+>테이블 데이터를 갱신한 경우
+    
+
+    update success
+
+
+>테이블 데이터 갱신에 실패한 경우
+
+
+    Unknown column: '업데이트적용'
+
+
+----
