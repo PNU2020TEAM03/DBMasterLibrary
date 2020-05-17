@@ -312,4 +312,42 @@ public class DBMasterLibrary {
         return result;
     }
 
+    public String tableUpdate(String userId, String tableName, String primary_key_name, String primary_key_value, String update_column_name, String update_value) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
+        String strApi = "/v1/column/update";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", userId);
+        object.put("tableName", tableName);
+        object.put("primary_key_name", primary_key_name);
+        object.put("primary_key_value", primary_key_value);
+        object.put("update_column_name", update_column_name);
+        object.put("update_value ", update_value );
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 테이블 업데이트 성공
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "update success";
+        }
+        // 테이블 업데이트 실패
+        if (jsonObject.getString("result").equals("E01")) {
+            result = "Unknown column:" + update_value;
+        }
+        return result;
+    }
+
 }
