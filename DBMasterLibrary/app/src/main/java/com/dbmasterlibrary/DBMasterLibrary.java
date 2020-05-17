@@ -241,4 +241,38 @@ public class DBMasterLibrary {
         return result;
     }
 
+    public String tableDrop(String userId, String tableName) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
+        String strApi = "/v1/table/drop";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", userId);
+        object.put("tableName", tableName);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 테이블 삭제 성공
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "DROP success";
+        }
+        // 테이블 삭제 실패
+        if (jsonObject.getString("result").equals("E01")) {
+            result = "Unknown table: " + tableName;
+        }
+        return result;
+    }
+
 }
