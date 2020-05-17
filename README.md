@@ -287,3 +287,45 @@
 
 
 ----
+
+# 테이블 이름 변경 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 지정하는 테이블의 이름을 변경합니다.
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+* 새로운 테이블 이름 (String)
+
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary ();
+
+    String userId = "test";
+    String tableName= "test2Table";
+    String newTableName= "test2TableNewName";
+    
+    dbMasterLibrary.tableRename(userId, tableName, newTableName);
+
+
+**응답 결과**
+  
+
+>테이블 이름 변경에 성공한 경우
+    
+
+    success
+
+
+>테이블 이름 변경에 실패한 경우
+
+
+    Error: 'test2Table' doesn't exist
+
+
+----
