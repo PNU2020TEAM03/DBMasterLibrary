@@ -66,7 +66,7 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String strApi = "v1/table/create";
+        String strApi = "/v1/table/create";
 
         final JSONObject object = new JSONObject();
         object.put("name", name);
