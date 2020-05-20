@@ -16,13 +16,14 @@ import okhttp3.Response;
 
 public class DBMasterLibrary {
 
+    String baseUrl = "https://pnuteam03.herokuapp.com";
+
     // DB서버 연결 확인
     public String connectionRequest(String userId, String userPw) throws JSONException, IOException {
         String result = null;
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/connection/check";
 
         final JSONObject object = new JSONObject();
@@ -45,11 +46,11 @@ public class DBMasterLibrary {
 
         // id는 맞았는데 비밀번호 틀린경우
         if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("unavailable")) {
-            result = "Wrong PW";
+            result = "failure: Wrong PW";
         }
         // id, pw 둘다 틀린경우
         if (jsonObject.getString("idValid").equals("unavailable") && jsonObject.getString("connectionValid").equals("unavailable")) {
-            result = "Wrong ID";
+            result = "failure: Wrong ID";
         }
         // 연결 가능한 경우
         if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("available")) {
@@ -65,7 +66,6 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0/";
         String strApi = "v1/table/create";
 
         final JSONObject object = new JSONObject();
@@ -84,7 +84,7 @@ public class DBMasterLibrary {
 
         // E01 : 테이블 이름이 이미 있는 경우(테이블 생성 실패)
         if (jsonObject.getString("result").equals("E01")) {
-            result = "table already exists";
+            result = "failure: table already exists";
         }
         // S01 : 테이블 생성 성공
         if (jsonObject.getString("result").equals("S01")) {
@@ -100,7 +100,6 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/sign-up/request";
 
         final JSONObject object = new JSONObject();
@@ -136,7 +135,6 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/sign-up/check-name";
 
         final JSONObject object = new JSONObject();
@@ -159,7 +157,7 @@ public class DBMasterLibrary {
         }
         // 입력한 ID가 이미 서버에 있는 경우
         if (jsonObject.getString("result").equals("E01")) {
-            result = "duplicate";
+            result = "failure: duplicate ID";
         }
 
         return result;
@@ -170,7 +168,6 @@ public class DBMasterLibrary {
         ArrayList<String> result = new ArrayList<>();
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/table/all-tables";
 
         final JSONObject object = new JSONObject();
@@ -192,7 +189,7 @@ public class DBMasterLibrary {
 
         String resultMessage = null;
         if(jsonObject.getString("value").isEmpty()) {
-            resultMessage = "No existing table";
+            resultMessage = "failure: No existing table";
             result.add(resultMessage);
         }
         else {
@@ -212,7 +209,6 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/table/get-info";
 
         final JSONObject object = new JSONObject();
@@ -235,7 +231,7 @@ public class DBMasterLibrary {
         }
         // 테이블 정보 받기 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure";
+            result = "failure: data doesn't exist";
         }
 
         return result;
@@ -246,7 +242,6 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/table/drop";
 
         final JSONObject object = new JSONObject();
@@ -270,7 +265,7 @@ public class DBMasterLibrary {
         }
         // 테이블 삭제 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "Unknown table: " + tableName;
+            result = "failure: Unknown table '" + tableName + "'";
         }
         return result;
     }
@@ -280,7 +275,6 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/table/rename";
 
         final JSONObject object = new JSONObject();
@@ -307,7 +301,7 @@ public class DBMasterLibrary {
 
         // 테이블 이름 변경 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "Error: " + tableName + " doesn't exist";
+            result = "failure: " + tableName + " doesn't exist";
         }
         return result;
     }
@@ -317,7 +311,6 @@ public class DBMasterLibrary {
 
         OkHttpClient client = new OkHttpClient();
 
-        String baseUrl = "http://54.180.95.198:8081/dbmasterspringboot-1.0";
         String strApi = "/v1/column/update";
 
         final JSONObject object = new JSONObject();
@@ -345,7 +338,7 @@ public class DBMasterLibrary {
         }
         // 테이블 업데이트 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "Unknown column:" + update_value;
+            result = "failure: Unknown column '" + update_value + "'";
         }
         return result;
     }
