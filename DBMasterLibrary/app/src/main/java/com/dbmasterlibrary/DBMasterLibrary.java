@@ -343,4 +343,40 @@ public class DBMasterLibrary {
         return result;
     }
 
+
+    public String checkTableName(String userId, String tableName) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/table/duplicate";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", userId);
+        object.put("tableName", tableName);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 테이블 이름이 사용 가능한 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "success";
+        }
+        // 테이블이름이 중복된 경우
+        if (jsonObject.getString("result").equals("E01") ) {
+            result = "failure : Duplicate table name ";
+        }
+
+        return result;
+    }
+
 }
