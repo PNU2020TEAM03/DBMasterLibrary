@@ -378,3 +378,44 @@
 
 
 ----
+
+## 테이블 이름 중복 확인 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 입력한 테이블 이름의 중복여부를 확인합니다.
+
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "uuzaza";
+    String tableName= "test1";
+
+    dbMasterLibrary.checkTableName(userId, tableName);
+
+
+
+**응답 결과**
+  
+
+> 테이블 이름이 사용 가능한 경우
+    
+
+    success
+
+
+> 테이블 이름이 중복인 경우
+
+
+    failure : Duplicate table name
+
+
+
+    
+----
