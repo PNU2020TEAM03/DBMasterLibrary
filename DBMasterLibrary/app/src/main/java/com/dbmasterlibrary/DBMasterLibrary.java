@@ -379,4 +379,40 @@ public class DBMasterLibrary {
         return result;
     }
 
+    public String tableDataSearch(String userId, String tableName, String keyword) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/table/search";
+
+        final JSONObject object = new JSONObject();
+        object.put("tableName", tableName);
+        object.put("name", userId);
+        object.put("keyword", keyword);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 테이블 내 데이터 검색에 성공한 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = jsonObject.getString("value");;
+        }
+        // 테이블 내 데이터 검색에 실패한 경우
+        if (jsonObject.getString("result").equals("E02") ) {
+            result = "failure : " + "Table '"  + userId + "." + tableName + "' doesn't exist";
+        }
+
+        return result;
+    }
+
 }
