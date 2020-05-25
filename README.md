@@ -463,3 +463,39 @@
 
 
 ----
+
+## 테이블 칼럼 insert 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+* insert값 (String)
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName= "testTable";
+    String insert= "7, '테스트7'";
+    
+
+    dbMasterLibrary.insetData(userId, tableName, insert);
+
+
+
+**응답 결과**
+  
+
+> 테이블 칼럼 insert 성공
+
+    insert 성공했습니다.
+
+
+> 테이블 내 중복되는 insert 값이 존재하는 경우
+
+
+    failure : Duplicate entry
