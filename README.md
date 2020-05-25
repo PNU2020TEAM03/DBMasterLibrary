@@ -419,3 +419,50 @@
 
     
 ----
+
+----
+
+## 테이블 내 데이터  검색 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 입력한 테이블 내 데이터를 검색합니다.
+
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+* 키워드 (String)
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName= "testTable";
+    String keyword= "3";
+    
+
+    dbMasterLibrary.tableDataSearch(userId, tableName, keyword);
+
+
+
+**응답 결과**
+  
+
+> 테이블 내 데이터 검색에 성공한 경우
+    
+
+    [{"sno":"3","name":"테스트3"}]
+
+
+> 테이블 내 데이터 검색에 실패한 경우
+
+
+    failure : Table 'test.testTable' doesn't exist
+
+
+
+    
+----
