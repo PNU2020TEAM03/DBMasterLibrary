@@ -499,3 +499,44 @@
 
 
     failure : Duplicate entry
+   
+----
+
+## 테이블 데이터 delete 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+* key name (String)
+* key value (String)
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName= "testTable";
+    String keyName = "sno";
+    String keyValue = "7";
+    
+
+    dbMasterLibrary.deleteData(userId, tableName, keyName, keyValue);
+
+
+
+**응답 결과**
+  
+
+> 테이블 데이터 delete 성공
+
+    table data deleted
+
+
+> 테이블 데이터 delete 실패
+
+
+    Failure: Unknown Data
+   
