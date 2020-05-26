@@ -415,5 +415,39 @@ public class DBMasterLibrary {
         return result;
     }
 
+    public String insertData(String dbName, String tableName, String insert) throws JSONException, IOException {
+        String result = null;
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/table/insert";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", dbName);
+        object.put("tableName",tableName);
+        object.put("insert", insert);
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+
+        String responseToString = response.body().string();
+
+        JSONObject jsonObject = new JSONObject(responseToString);
+
+        if(jsonObject.getString("result").equals("S01")) {
+            result = jsonObject.getString("message");
+        }
+        else if(jsonObject.getString("status").equals(500)) {
+            result = "failure: Duplicate entry";
+        }
+
+
+        return result;
+    }
+
 
 }
