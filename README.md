@@ -540,3 +540,37 @@
 
     Failure: Unknown Data
    
+----
+
+## 테이블 데이터 전부 불러오기 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName= "testTable";
+
+    dbMasterLibrary.getTableData(userId, tableName);
+
+
+
+**응답 결과**
+  
+
+> 테이블 데이터 불러오기 성공
+
+    [{"sno":1,"name":"테스트1"},{"sno":2,"name":"테스트2"},{"sno":3,"name":"테스트3"},{"sno":4,"name":"테스트4"},{"sno":5,"name":"테스트5"},{"sno":6,"name":"테스트6"},{"sno":8,"name":"테스트8"}]
+
+
+> 해당 테이블이 존재하지 않는 경우
+
+    failure: Data doesn't exist
