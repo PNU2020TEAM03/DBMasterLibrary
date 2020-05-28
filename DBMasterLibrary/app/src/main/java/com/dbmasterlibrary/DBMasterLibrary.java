@@ -482,5 +482,38 @@ public class DBMasterLibrary {
         return result;
     }
 
+    public String userEmailAuth(String email) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/auth/request";
+
+        final JSONObject object = new JSONObject();
+        object.put("email", email);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 이메일에 인증번호 전송을 성공한 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "메일이 성공적으로 발송되었습니다.";
+        }
+        // 이메일에 인증번호 전송을 실패한 경우
+        if (jsonObject.getString("result").equals("E01") ) {
+            result = "failure : 이메일 형식이 잘못되었습니다.";
+        }
+
+        return result;
+    }
 
 }
