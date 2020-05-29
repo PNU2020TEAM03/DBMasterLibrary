@@ -595,7 +595,7 @@
 
     String email= "uuzaza74@gmail.com";
 
-    dbMasterLibrary.tableDataSearch(email);
+    dbMasterLibrary.userEmailAuth(email);
 
 
 
