@@ -574,3 +574,45 @@
 > 해당 테이블이 존재하지 않는 경우
 
     failure: Data doesn't exist
+    
+-----
+
+## 사용자 이메일 인증 요청 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 입력한 이메일에 인증번호를 전송합니다.
+
+
+**입력 값**
+
+* 사용자 이메일 (String)
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String email= "uuzaza74@gmail.com";
+
+    dbMasterLibrary.tableDataSearch(email);
+
+
+
+**응답 결과**
+  
+
+> 이메일에 인증번호 전송을 성공한 경우
+    
+
+    메일이 성공적으로 발송되었습니다.
+
+
+> 이메일에 인증번호 전송을 실패한 경우
+
+
+    failure : 이메일 형식이 잘못되었습니다.
+
+
+
+----
