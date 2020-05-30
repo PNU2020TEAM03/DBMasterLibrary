@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -552,6 +553,29 @@ public class DBMasterLibrary {
 
 
         return result;
+    }
+
+    public ArrayList<String> getIndexData(String tableData, int index) throws JSONException {
+        String indexData = null;
+        ArrayList<String> keyNameList = new ArrayList<>();
+        ArrayList<String> keyValueList = new ArrayList<>();
+
+        JSONArray jsonArray = new JSONArray(tableData);
+        indexData = jsonArray.getString(index);
+
+        JSONObject indexObject = new JSONObject(indexData);
+        Iterator iter = indexObject.keys();
+        while(iter.hasNext()) {
+            String keyNametoString = iter.next().toString();
+            keyNameList.add(keyNametoString);
+        }
+
+        for(int i=0; i<keyNameList.size(); i++) {
+            keyValueList.add(indexObject.getString(keyNameList.get(i)));
+
+        }
+
+        return keyValueList;
     }
 
 }
