@@ -616,3 +616,49 @@
 
 
 ----
+
+
+## 사용자 테이블 데이터를 파일로 추출하는 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자의 테이블 데이터를 파일로 추출하여 이메일로 전송합니다.
+
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+* 사용자 이메일 (String)
+
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName = "testTable";
+    String email= "uuzaza74@gmail.com";
+
+    dbMasterLibrary.tableDataExport(userId, tableName , email);
+
+
+
+**응답 결과**
+  
+
+> 파일을 메일로 전송 성공한 경우
+    
+
+    파일이 이메일로 전송되었습니다.
+
+
+> 파일을 메일로 전송 실패한 경우
+
+
+    Table 'test2.testTable' doesn't exist
+
+
+
+----
