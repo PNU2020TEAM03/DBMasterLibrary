@@ -516,4 +516,42 @@ public class DBMasterLibrary {
         return result;
     }
 
+    public String tableDataExport(String userId, String tableName, String email) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/table/export";
+
+        final JSONObject object = new JSONObject();
+        object.put("tableName", tableName);
+        object.put("name", userId);
+        object.put("email", email);
+
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 파일을 메일로 전송 성공한 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "파일이 이메일로 전송되었습니다.";
+        }
+        // 파일을 메일로 전송 실패한 경우
+        if (jsonObject.getString("result").equals("E01") ) {
+            result = "failure : " + " Table  "  + userId + "." + tableName + "' doesn't exist";
+        }
+
+
+        return result;
+    }
+
 }
