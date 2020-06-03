@@ -662,3 +662,48 @@
 
 
 ----
+
+
+## 사용자 이메일 인증 확인 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 입력한 이메일에 전송된 인증번호를 받아서 디비값과 비교하여 일치하는지 확인합니다.
+
+
+**입력 값**
+
+
+* 사용자 이메일 (String)
+* 인증번호 (String)
+
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String email= "uuzaza74@gmail.com";
+    String authNum= "877387";
+
+    dbMasterLibrary.userEmailCheck(email, authNum);
+
+
+
+**응답 결과**
+  
+
+> 이메일 인증에 성공한 경우
+    
+
+    인증 되었습니다.
+
+
+> 이메일 인증에 실패한 경우
+
+
+    인증에 실패했습니다. 번호가 일치하지 않습니다.
+
+
+
+----
