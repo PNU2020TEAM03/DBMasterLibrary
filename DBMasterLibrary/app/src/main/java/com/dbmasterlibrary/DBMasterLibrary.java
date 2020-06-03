@@ -578,4 +578,40 @@ public class DBMasterLibrary {
         return keyValueList;
     }
 
+    public String userEmailCheck(String email, String authNum) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/auth/check";
+
+        final JSONObject object = new JSONObject();
+        object.put("authNum", authNum);
+        object.put("email", email);
+
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 이메일 인증에 성공한 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = "인증 되었습니다.";
+        }
+
+        // 이메일인증에 실패한 경우
+        if (jsonObject.getString("result").equals("E01") ) {
+            result = "인증에 실패했습니다. 번호가 일치하지 않습니다.";
+        }
+
+        return result;
+    }
 }
