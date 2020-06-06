@@ -614,4 +614,41 @@ public class DBMasterLibrary {
 
         return result;
     }
+
+    public String getSelectQuery(String dbName, String tableName, String query ) throws IOException, JSONException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+        
+        String strApi = "/v1/query/custom";
+
+        final JSONObject object = new JSONObject();
+        object.put("tableName", tableName);
+        object.put("name", dbName);
+        object.put("query", query);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        String responseDataString = response.body().string();
+
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 테이블 정보 받기 성공
+        if (jsonObject.getString("result").equals("S01")) {
+            result = jsonObject.getString("value");
+        }
+        // 테이블 정보 받기 실패
+        if (jsonObject.getString("result").equals("E02")) {
+            result = "failure: error in SQL syntax";
+        }
+
+        return result;
+    }
 }
