@@ -707,3 +707,43 @@
 
 
 ----
+
+## 테이블 데이터의 특정 index의 value값 추출 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+이 함수는 다른 함수의 리턴값에 대한 특정 value값을 추출해내기 위해 사용됩니다.
+
+함수의 리턴값은 ArrayList 타입이므로 함수를 호출할 때 ArrayList 타입으로 호출해야 합니다.
+
+**입력 값**
+
+* 테이블 데이터 목록 (String)
+* index값 (int)
+
+
+**사용 방법**
+
+> 테이블 데이터 불러오는 함수 호출
+
+String값의 리턴값을 반환한다.
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName= "testTable";
+
+    String tableDataList = dbMasterLibrary.getTableData(userId, tableName);
+
+    // tableDataList의 리턴값: [{"sno":1,"name":"테스트1"},{"sno":2,"name":"테스트2"},{"sno":3,"name":"테스트3"},{"sno":4,"name":"테스트4"},{"sno":5,"name":"테스트5"},{"sno":6,"name":"테스트6"},{"sno":8,"name":"테스트8"}]
+
+> 특정 index에 대한 value값 추출
+
+    ArrayList<String> result = dbLibrary.getIndexData(tableDataList, 0);
+
+
+**응답 결과**
+  
+
+> SELECT문 처리 성공
+
+    [1, 테스트1]
