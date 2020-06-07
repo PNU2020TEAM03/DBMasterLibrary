@@ -747,3 +747,54 @@ String값의 리턴값을 반환한다.
 > SELECT문 처리 성공
 
     [1, 테스트1]
+
+
+------
+
+## 테이블 칼럼 기준 정렬 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+사용자가 입력한 테이블의 특정 칼럼을 정렬합니다.
+
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* 테이블 이름 (String)
+* 칼럼 이름 (String)
+* 정렬 방향 (String)
+
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName = "testTable";
+    String sortColumn = "name";
+    String direction = "DESC;
+
+
+    dbMasterLibrary.tableColumnSort(userId, tableName, sortColumn, direction);
+
+
+
+**응답 결과**
+  
+
+> 테이블 특정 칼럼 정렬에 성공한 경우
+    
+
+    [{"sno":9,"name":"테스트9","testColumn1":1,"testColumn2":2},{"sno":8,"name":"테스트8","testColumn1":1,"testColumn2":2},{"sno":6,"name":"테스트6","testColumn1":1,"testColumn2":2},{"sno":5,"name":"테스트5","testColumn1":1,"testColumn2":2},{"sno":4,"name":"테스트4","testColumn1":1,"testColumn2":2},{"sno":3,"name":"테스트3","testColumn1":1,"testColumn2":2},{"sno":2,"name":"테스트2","testColumn1":1,"testColumn2":2},{"sno":12,"name":"테스트12","testColumn1":1,"testColumn2":2},{"sno":11,"name":"테스트11","testColumn1":1,"testColumn2":2},{"sno":10,"name":"테스트10","testColumn1":1,"testColumn2":2},{"sno":1,"name":"테스트1","testColumn1":1,"testColumn2":2}]
+
+
+> 테이블 특정 칼럼 정렬에 실패한 경우
+
+
+    failure : You have an error in your SQL syntax
+
+
+
+----
