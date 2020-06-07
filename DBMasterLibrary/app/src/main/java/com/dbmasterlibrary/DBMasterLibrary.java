@@ -651,4 +651,42 @@ public class DBMasterLibrary {
 
         return result;
     }
+
+    public String tableColumnSort(String userId, String tableName, String sortColumn, String direction) throws JSONException, IOException {
+        String result = null;
+
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/table/sort";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", userId);
+        object.put("tableName", tableName);
+        object.put("sortColumn", sortColumn);
+        object.put("direction", direction);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+
+        Response response = client.newCall(request).execute();
+        String responseDataString = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        // 테이블 특정 칼럼 정렬에 성공한 경우
+        if (jsonObject.getString("result").equals("S01")) {
+            result = jsonObject.getString("value");;
+        }
+
+        // 테이블 특정 칼럼 정렬에 실패한 경우
+        if (jsonObject.getString("result").equals("E02") ) {
+            result = "failure : You have an error in your SQL syntax";
+        }
+
+        return result;
+    }
 }
