@@ -54,20 +54,20 @@
 > 연결 성공
     
 
-    Connection Success
+    DB 서버와 연결에 성공했습니다.
 
 
 >PW가 틀린경우
 
 
-    Wrong PW
+    failure: 잘못된 비밀번호입니다.
 
 
 
 >ID, PW가 틀린경우
 
 
-    Wrong ID
+    failure: 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.
     
 ----
 
@@ -101,13 +101,13 @@
 >테이블 생성  성공
     
 
-    create success
+    success: 테이블 생성에 성공하였습니다.
 
 
 >테이블 이름이 이미 존재하는 경우
 
 
-    table already exists
+    failure: 테이블 생성에 실패했습니다. 테이블 이름이 이미 존재합니다. 새로운 테이블 이름을 입력해주세요.
 
 
 ----
