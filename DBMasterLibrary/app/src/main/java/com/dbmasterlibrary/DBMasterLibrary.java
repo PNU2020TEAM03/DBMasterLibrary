@@ -47,15 +47,15 @@ public class DBMasterLibrary {
 
         // id는 맞았는데 비밀번호 틀린경우
         if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("unavailable")) {
-            result = "failure: Wrong PW";
+            result = "failure: 잘못된 비밀번호입니다.";
         }
         // id, pw 둘다 틀린경우
         if (jsonObject.getString("idValid").equals("unavailable") && jsonObject.getString("connectionValid").equals("unavailable")) {
-            result = "failure: Wrong ID";
+            result = "failure: 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.";
         }
         // 연결 가능한 경우
         if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("available")) {
-            result = "Connection Success";
+            result = "DB 서버와 연결에 성공했습니다.";
         }
 
         return result;
