@@ -54,20 +54,20 @@
 > 연결 성공
     
 
-    Connection Success
+    DB 서버와 연결에 성공했습니다.
 
 
 >PW가 틀린경우
 
 
-    Wrong PW
+    failure: 잘못된 비밀번호입니다.
 
 
 
 >ID, PW가 틀린경우
 
 
-    Wrong ID
+    failure: 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.
     
 ----
 
