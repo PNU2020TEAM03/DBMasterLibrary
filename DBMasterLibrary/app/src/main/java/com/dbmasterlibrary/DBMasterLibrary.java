@@ -55,7 +55,7 @@ public class DBMasterLibrary {
         }
         // 연결 가능한 경우
         if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("available")) {
-            result = "DB 서버와 연결에 성공했습니다.";
+            result = "success: DB 서버와 연결에 성공했습니다.";
         }
 
         return result;
