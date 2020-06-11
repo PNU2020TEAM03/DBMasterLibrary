@@ -85,11 +85,11 @@ public class DBMasterLibrary {
 
         // E01 : 테이블 이름이 이미 있는 경우(테이블 생성 실패)
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure: table already exists";
+            result = "failure: 테이블 생성에 실패했습니다. 테이블 이름이 이미 존재합니다. 새로운 테이블 이름을 입력해주세요.";
         }
         // S01 : 테이블 생성 성공
         if (jsonObject.getString("result").equals("S01")) {
-            result = "create success";
+            result = "success: 테이블 생성에 성공하였습니다.";
         }
 
         return result;
