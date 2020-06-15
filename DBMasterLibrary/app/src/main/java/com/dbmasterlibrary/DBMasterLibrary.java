@@ -97,7 +97,7 @@ public class DBMasterLibrary {
 
     // 회원가입
     public JSONObject signUp(String userId, String userPw) throws JSONException, IOException {
-        String result = null;
+        
         JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
@@ -134,9 +134,9 @@ public class DBMasterLibrary {
     }
 
     // 아이디 중복 확인
-    public String checkId(String userId) throws JSONException, IOException {
-        String result = null;
+    public JSONObject checkId(String userId) throws JSONException, IOException {
 
+        JSONObject resultObject = new JSONObject();
         OkHttpClient client = new OkHttpClient();
 
         String strApi = "/v1/sign-up/check-name";
@@ -157,14 +157,16 @@ public class DBMasterLibrary {
 
         // 사용가능한 ID인 경우
         if (jsonObject.getString("result").equals("S01")) {
-            result = "available";
+            resultObject.put("result", "S01");
+            resultObject.put("message","사용 가능한 ID입니다.");
         }
         // 입력한 ID가 이미 서버에 있는 경우
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure: duplicate ID";
+            resultObject.put("result", "E01");
+            resultObject.put("error","중복되는 ID입니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     public ArrayList<String> getAllTables(String dbName) throws JSONException, IOException {
