@@ -96,8 +96,9 @@ public class DBMasterLibrary {
     }
 
     // 회원가입
-    public String signUp(String userId, String userPw) throws JSONException, IOException {
+    public JSONObject signUp(String userId, String userPw) throws JSONException, IOException {
         String result = null;
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -120,14 +121,16 @@ public class DBMasterLibrary {
 
         // 회원가입을 성공한 경우
         if (jsonObject.getString("result").equals("S01")) {
-            result = "success";
+            resultObject.put("result", "S01");
+            resultObject.put("message","회원가입 성공.");
         }
         // 회원가입에 실패한 경우
         if (jsonObject.getString("result").equals("E01") ) {
-            result = "failure : Duplicate ID ";
+            resultObject.put("result", "E01");
+            resultObject.put("error","중복되는 ID입니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     // 아이디 중복 확인
