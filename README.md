@@ -821,3 +821,43 @@ String값의 리턴값을 반환한다.
 
 
 ----
+
+## 테이블 join 함수
+네트워크 통신이 필요하며 메인 쓰레드가 아닌 다른 쓰레드에서 사용해야합니다.
+
+join할 두 개의 테이블 모두 기준값이 되는 column값이 존재해야 합니다.
+
+**입력 값**
+
+* 사용자 아이디 (String)
+* join 테이블 이름1 (String)
+* join 테이블 이름2 (String)
+* 기준 테이블 column (String)
+
+
+
+> 사용 방법
+
+    DBMasterLibrary dbMasterLibrary = new DBMasterLibrary();
+
+    String userId = "test";
+    String tableName= "testA";
+    String joinTable = "testB"
+    String joiningColumn = "id"
+    
+    dbMasterLibrary.join(userId, tableName, joinTable, joiningColumn);
+
+
+
+**응답 결과**
+  
+
+> 테이블 join 성공
+
+    [{"address":"xfds","phone":"01029302","name":"fewg","payment":"1239","id":"10293039","dept":"pop","hobby":"eng"},{"address":"few","phone":"01029382938","name":"awef","payment":"10","id":"19920392","dept":"sw","hobby":"wfa"},{"address":"awef","phone":"01023231232","name":"jeijfe","payment":"12899","id":"201524447","dept":"qwd","hobby":"qwr1"},{"address":"idonkwn","phone":"01012341234","name":"Kim","payment":"80000","id":"201724447","dept":"sdw","hobby":"???"}]
+
+
+
+> 존재하지 않는 joining column
+
+    failure: Unknown Column
