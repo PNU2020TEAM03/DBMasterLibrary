@@ -142,13 +142,13 @@
 >회원가입 성공
     
 
-    success
+    {"result":"S01","message":"회원가입 성공."}
 
 
 >아이디 중복으로 회원가입 실패
 
 
-    failure : Duplicate ID
+    {"result":"E01","error":"중복되는 ID입니다."}
 
 
 ----
@@ -178,13 +178,13 @@
 >사용 가능한 ID인 경우
     
 
-    available
+    {"result":"S01","message":"사용 가능한 ID입니다."}
 
 
 >서버에 ID가 이미 존재하는 경우
 
 
-    duplicate
+    {"result":"E01","error":"중복되는 ID입니다."}
 
 
 ----
