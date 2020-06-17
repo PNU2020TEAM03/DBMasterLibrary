@@ -66,8 +66,8 @@ public class DBMasterLibrary {
     }
 
     // 데이터베이스 테이블 생성
-    public String createTable(String name, String tableName, String fieldInfo) throws JSONException, IOException {
-        String result = null;
+    public JSONObject createTable(String name, String tableName, String fieldInfo) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -89,14 +89,17 @@ public class DBMasterLibrary {
 
         // E01 : 테이블 이름이 이미 있는 경우(테이블 생성 실패)
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure: 테이블 생성에 실패했습니다. 테이블 이름이 이미 존재합니다. 새로운 테이블 이름을 입력해주세요.";
+            resultObject.put("result", "E01");
+            resultObject.put("message","테이블 생성에 실패했습니다. 테이블 이름이 이미 존재합니다. 새로운 테이블 이름을 입력해주세요.");
         }
         // S01 : 테이블 생성 성공
         if (jsonObject.getString("result").equals("S01")) {
-            result = "success: 테이블 생성에 성공하였습니다.";
+            resultObject.put("result", "S01");
+            resultObject.put("message","테이블 생성에 성공하였습니다.");
+
         }
 
-        return result;
+        return resultObject;
     }
 
     // 회원가입
