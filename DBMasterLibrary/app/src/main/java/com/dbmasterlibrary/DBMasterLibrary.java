@@ -20,8 +20,8 @@ public class DBMasterLibrary {
     String baseUrl = "https://pnuteam03.herokuapp.com";
 
     // DB서버 연결 확인
-    public String connectionRequest(String userId, String userPw) throws JSONException, IOException {
-        String result = null;
+    public JSONObject connectionRequest(String userId, String userPw) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -47,18 +47,22 @@ public class DBMasterLibrary {
 
         // id는 맞았는데 비밀번호 틀린경우
         if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("unavailable")) {
-            result = "failure: 잘못된 비밀번호입니다.";
+            resultObject.put("result", "E01");
+            resultObject.put("message","잘못된 비밀번호입니다.");
+
         }
         // id, pw 둘다 틀린경우
         if (jsonObject.getString("idValid").equals("unavailable") && jsonObject.getString("connectionValid").equals("unavailable")) {
-            result = "failure: 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.";
+            resultObject.put("result", "E02");
+            resultObject.put("message","가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
         }
         // 연결 가능한 경우
         if (jsonObject.getString("idValid").equals("available") && jsonObject.getString("connectionValid").equals("available")) {
-            result = "success: DB 서버와 연결에 성공했습니다.";
+            resultObject.put("result", "S01");
+            resultObject.put("message","DB 서버와 연결에 성공했습니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     // 데이터베이스 테이블 생성
