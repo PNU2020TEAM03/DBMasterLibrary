@@ -1,4 +1,18 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'lsc013792'
+    groupId = 'DBMaster'
+    artifactId = 'db-master-library'
+    publishVersion = '0.1.0'
+    desc = 'https://github.com/PNU2020TEAM03/DBMasterLibrary'
+    website = 'https://github.com/PNU2020TEAM03/DBMasterLibrary'
+    issueTracker = 'https://github.com/PNU2020TEAM03/DBMasterLibrary'
+    repository = 'https://github.com/PNU2020TEAM03/DBMasterLibrary'
+
+}
+
 
 android {
     compileSdkVersion 29
@@ -33,3 +47,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 }
+
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.lsc013792'
+
