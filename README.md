@@ -28,6 +28,26 @@
 * [테이블 join 함수](#테이블-join-함수)
 
 
+---
+## 라이브러리 사용 방법
+DBMaster 라이브러리를 사용하기 위한 방법입니다.
+
+> 프로젝트 수준의 gradle
+
+    maven { url 'https://jitpack.io' }
+    
+코드를 allprojects의 repositories안에 추가합니다.
+
+
+
+> app 수준의 gradle
+
+    implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1'
+
+코드를 dependencies 안에 추가합니다.
+
+
+
 
 ----
 
