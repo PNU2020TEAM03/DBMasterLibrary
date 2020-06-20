@@ -293,8 +293,8 @@ public class DBMasterLibrary {
         return resultObject;
     }
 
-    public String tableRename(String userId, String tableName, String newTableName) throws JSONException, IOException {
-        String result = null;
+    public JSONObject tableRename(String userId, String tableName, String newTableName) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -319,14 +319,32 @@ public class DBMasterLibrary {
 
         // 테이블 이름 변경 성공
         if (jsonObject.getString("result").equals("S01")) {
-            result = "success";
+            resultObject.put("result", "S01");
+            resultObject.put("message","테이블 이름변경에 성공했습니다.");
         }
 
         // 테이블 이름 변경 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure: " + tableName + " doesn't exist";
+            resultObject.put("result", "E01");
+            resultObject.put("message","tableName 값이 입력되지 않았습니다.");
         }
-        return result;
+        if (jsonObject.getString("result").equals("E02")) {
+            resultObject.put("result", "E02");
+            resultObject.put("message","name 값이 입력되지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E03")) {
+            resultObject.put("result", "E03");
+            resultObject.put("message","newName 값이 입력되지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E04")) {
+            resultObject.put("result", "E04");
+            resultObject.put("message","테이블 또는 데이터베이스가 존재하지 않습니다.");
+        }
+        if (jsonObject.getString("result").equals("E05")) {
+            resultObject.put("result", "E05");
+            resultObject.put("message","java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1");
+        }
+        return resultObject;
     }
 
     public JSONObject tableUpdate(String userId, String tableName, String primary_key_name, String primary_key_value, String update_column_name, String update_value) throws JSONException, IOException {
