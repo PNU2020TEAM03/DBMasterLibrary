@@ -672,17 +672,18 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 > 이메일에 인증번호 전송을 성공한 경우
     
 
-    메일이 성공적으로 발송되었습니다.
+    {"result":"S01","message":"메일이 성공적으로 발송되었습니다."}
 
 
 > 이메일에 인증번호 전송을 실패한 경우
 
 
-    failure : 이메일 형식이 잘못되었습니다.
+    {"result":"E01","message":"이메일 형식이 잘못되었습니다."}
 
 
 
