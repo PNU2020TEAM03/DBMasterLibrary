@@ -687,8 +687,8 @@ public class DBMasterLibrary {
         return keyValueList;
     }
 
-    public String userEmailCheck(String email, String authNum) throws JSONException, IOException {
-        String result = null;
+    public JSONObject userEmailCheck(String email, String authNum) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -713,15 +713,17 @@ public class DBMasterLibrary {
 
         // 이메일 인증에 성공한 경우
         if (jsonObject.getString("result").equals("S01")) {
-            result = "인증 되었습니다.";
+            resultObject.put("result", "S01");
+            resultObject.put("message","인증되었습니다.");
         }
 
         // 이메일인증에 실패한 경우
         if (jsonObject.getString("result").equals("E01") ) {
-            result = "인증에 실패했습니다. 번호가 일치하지 않습니다.";
+            resultObject.put("result", "E01");
+            resultObject.put("message","인증에 실패했습니다. 번호가 일치하지 않습니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     public String getSelectQuery(String dbName, String tableName, String query ) throws IOException, JSONException {
