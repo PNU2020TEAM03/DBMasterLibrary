@@ -590,8 +590,8 @@ public class DBMasterLibrary {
         return result;
     }
 
-    public String userEmailAuth(String email) throws JSONException, IOException {
-        String result = null;
+    public JSONObject userEmailAuth(String email) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -614,14 +614,16 @@ public class DBMasterLibrary {
 
         // 이메일에 인증번호 전송을 성공한 경우
         if (jsonObject.getString("result").equals("S01")) {
-            result = "메일이 성공적으로 발송되었습니다.";
+            resultObject.put("result", "S01");
+            resultObject.put("message","메일이 성공적으로 발송되었습니다.");
         }
         // 이메일에 인증번호 전송을 실패한 경우
         if (jsonObject.getString("result").equals("E01") ) {
-            result = "failure : 이메일 형식이 잘못되었습니다.";
+            resultObject.put("result", "E01");
+            resultObject.put("message","이메일 형식이 잘못되었습니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     public String tableDataExport(String userId, String tableName, String email) throws JSONException, IOException {
