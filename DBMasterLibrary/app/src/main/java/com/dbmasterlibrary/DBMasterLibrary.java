@@ -800,4 +800,17 @@ public class DBMasterLibrary {
 
         return result;
     }
+
+    private ArrayList<JSONObject> getJSONArrayList(JSONObject responseObject) throws JSONException {
+
+        ArrayList<JSONObject> dataArrayList = new ArrayList<>();
+
+        JSONArray jsonArray = responseObject.getJSONArray("value");
+        for(int i=0; i<jsonArray.length(); i++) {
+            dataArrayList.add(jsonArray.getJSONObject(i));
+        }
+
+        return dataArrayList;
+
+    }
 }
