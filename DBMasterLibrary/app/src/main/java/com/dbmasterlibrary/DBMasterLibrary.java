@@ -462,6 +462,40 @@ public class DBMasterLibrary {
         return result;
     }
 
+    public String deleteData(String dbName, String tableName, String keyName, String keyValue) throws JSONException, IOException {
+        String result = null;
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/column/delete";
+
+        final JSONObject object = new JSONObject();
+        object.put("name",dbName);
+        object.put("tableName",tableName);
+        object.put("primary_key_name",keyName);
+        object.put("primary_key_value",keyValue);
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        String responseToString = response.body().string();
+
+        JSONObject jsonObject = new JSONObject(responseToString);
+
+        if(jsonObject.getString("result").equals("S01")) {
+            result = "table data deleted";
+        }
+
+        else if(jsonObject.getString("result").equals("E01")) {
+            result = "Failure: Unknown Data";
+        }
+
+        return result;
+    }
+
     public String getTableData(String dbName, String tableName) throws JSONException, IOException {
         String result = null;
         OkHttpClient client = new OkHttpClient();
