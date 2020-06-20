@@ -473,17 +473,18 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 > 테이블 이름이 사용 가능한 경우
     
 
-    success
+    {"result":"S01","message":"사용하실 수 있는 이름입니다."}
 
 
 > 테이블 이름이 중복인 경우
 
 
-    failure : Duplicate table name
+    {"result":"E01","message":"같은 이름의 테이블이 존재합니다."}
 
 
     
