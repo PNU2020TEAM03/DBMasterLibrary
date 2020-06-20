@@ -416,8 +416,8 @@ public class DBMasterLibrary {
     }
 
 
-    public String checkTableName(String userId, String tableName) throws JSONException, IOException {
-        String result = null;
+    public JSONObject checkTableName(String userId, String tableName) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -441,14 +441,16 @@ public class DBMasterLibrary {
 
         // 테이블 이름이 사용 가능한 경우
         if (jsonObject.getString("result").equals("S01")) {
-            result = "success";
+            resultObject.put("result", "S01");
+            resultObject.put("message","사용하실 수 있는 이름입니다.");
         }
         // 테이블이름이 중복된 경우
         if (jsonObject.getString("result").equals("E01") ) {
-            result = "failure : Duplicate table name ";
+            resultObject.put("result", "E01");
+            resultObject.put("message","같은 이름의 테이블이 존재합니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     public String tableDataSearch(String userId, String tableName, String keyword) throws JSONException, IOException {
