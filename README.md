@@ -764,17 +764,18 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 > 이메일 인증에 성공한 경우
     
 
-    인증 되었습니다.
+    {"result":"S01","message":"인증되었습니다."}
 
 
 > 이메일 인증에 실패한 경우
 
 
-    인증에 실패했습니다. 번호가 일치하지 않습니다.
+    {"result":"E01","message":"인증에 실패했습니다. 번호가 일치하지 않습니다."}
 
 
 
