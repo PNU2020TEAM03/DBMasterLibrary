@@ -327,17 +327,20 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 >테이블을 삭제한 경우
     
 
-    DROP success
+    {"result":"S01","message":"테이블이 삭제되었습니다."}
 
 
 >테이블 삭제에 실패한 경우
 
 
-    Unknown table: 'test1'
+    {"result":"E01","message":"tableName 값이 입력되지 않았습니다."}
+    {"result":"E02","message":"name 값이 입력되지 않았습니다."}
+    {"result":"E03","message":"java.sql.SQLSyntaxErrorException: Unknown table 'DropTableTesttingHolyShitWhattheFuck'"}
 
 
 ----
