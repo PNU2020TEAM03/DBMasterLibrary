@@ -319,8 +319,8 @@ public class DBMasterLibrary {
         return result;
     }
 
-    public String tableUpdate(String userId, String tableName, String primary_key_name, String primary_key_value, String update_column_name, String update_value) throws JSONException, IOException {
-        String result = null;
+    public JSONObject tableUpdate(String userId, String tableName, String primary_key_name, String primary_key_value, String update_column_name, String update_value) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -347,13 +347,44 @@ public class DBMasterLibrary {
 
         // 테이블 업데이트 성공
         if (jsonObject.getString("result").equals("S01")) {
-            result = "update success";
+            resultObject.put("result", "S01");
+            resultObject.put("message","업데이트에 성공했습니다.");
         }
         // 테이블 업데이트 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure: Unknown column '" + update_value + "'";
+            resultObject.put("result", "E01");
+            resultObject.put("message","데이터 베이스 이름을 입력하지 않았습니다.");
         }
-        return result;
+        if (jsonObject.getString("result").equals("E02")) {
+            resultObject.put("result", "E02");
+            resultObject.put("message","테이블 이름을 입력하지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E03")) {
+            resultObject.put("result", "E03");
+            resultObject.put("message","Primary Key를 입력하지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E04")) {
+            resultObject.put("result", "E04");
+            resultObject.put("message","Primary Key 값이 입력되지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E05")) {
+            resultObject.put("result", "E05");
+            resultObject.put("message","업데이트할 column 이름이 입력되지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E06")) {
+            resultObject.put("result", "E06");
+            resultObject.put("message","업데이트할 column의 값이 입력되지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E07")) {
+            resultObject.put("result", "E07");
+            resultObject.put("message","테이블이 존재하지 않습니다.");
+        }
+        if (jsonObject.getString("result").equals("E08")) {
+            resultObject.put("result", "E08");
+            resultObject.put("message","SQL 문법 오류입니다.");
+        }
+
+        return resultObject;
     }
 
 
