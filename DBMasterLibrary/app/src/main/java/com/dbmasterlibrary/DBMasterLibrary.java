@@ -250,8 +250,8 @@ public class DBMasterLibrary {
         return result;
     }
 
-    public String tableDrop(String userId, String tableName) throws JSONException, IOException {
-        String result = null;
+    public JSONObject tableDrop(String userId, String tableName) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -274,13 +274,23 @@ public class DBMasterLibrary {
 
         // 테이블 삭제 성공
         if (jsonObject.getString("result").equals("S01")) {
-            result = "DROP success";
+            resultObject.put("result", "S01");
+            resultObject.put("message","테이블이 삭제되었습니다.");
         }
         // 테이블 삭제 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure: Unknown table '" + tableName + "'";
+            resultObject.put("result", "E01");
+            resultObject.put("message","tableName 값이 입력되지 않았습니다.");
         }
-        return result;
+        if (jsonObject.getString("result").equals("E02")) {
+            resultObject.put("result", "E02");
+            resultObject.put("message","name 값이 입력되지 않았습니다.");
+        }
+        if (jsonObject.getString("result").equals("E03")) {
+            resultObject.put("result", "E03");
+            resultObject.put("message","java.sql.SQLSyntaxErrorException: Unknown table 'DropTableTesttingHolyShitWhattheFuck'");
+        }
+        return resultObject;
     }
 
     public String tableRename(String userId, String tableName, String newTableName) throws JSONException, IOException {
