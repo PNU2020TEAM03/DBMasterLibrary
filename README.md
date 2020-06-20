@@ -422,13 +422,20 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 >테이블 데이터를 갱신한 경우
     
 
-    update success
+    {"result":"S01","message":"업데이트에 성공했습니다."}
 
 
 >테이블 데이터 갱신에 실패한 경우
 
 
-    Unknown column: '업데이트적용'
+    {"result":"E01","message":"데이터 베이스 이름을 입력하지 않았습니다."}
+    {"result":"E02","message":"테이블 이름을 입력하지 않았습니다."}
+    {"result":"E03","message":"Primary Key를 입력하지 않았습니다."}
+    {"result":"E04","message":"Primary Key 값이 입력되지 않았습니다."}
+    {"result":"E05","message":"업데이트할 column 이름이 입력되지 않았습니다."}
+    {"result":"E06","message":"업데이트할 column의 값이 입력되지 않았습니다."}
+    {"result":"E07","message":"테이블이 존재하지 않습니다."}
+    {"result":"E08","message":"SQL 문법 오류입니다."}
 
 
 ----
