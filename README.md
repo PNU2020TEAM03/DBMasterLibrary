@@ -372,17 +372,22 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 >테이블 이름 변경에 성공한 경우
     
 
-    success
+    {"result":"S01","message":"테이블 이름변경에 성공했습니다."}
 
 
 >테이블 이름 변경에 실패한 경우
 
 
-    Error: 'test2Table' doesn't exist
+    {"result":"E01","message":"tableName 값이 입력되지 않았습니다."}
+    {"result":"E02","message":"name 값이 입력되지 않았습니다."}
+    {"result":"E03","message":"newName 값이 입력되지 않았습니다."}
+    {"result":"E04","message":"테이블 또는 데이터베이스가 존재하지 않습니다."}
+    {"result":"E05","message":"java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1"}
 
 
 ----
