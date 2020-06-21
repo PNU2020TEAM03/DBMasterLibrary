@@ -637,15 +637,20 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 > 테이블 데이터 불러오기 성공
 
-    [{"sno":1,"name":"테스트1"},{"sno":2,"name":"테스트2"},{"sno":3,"name":"테스트3"},{"sno":4,"name":"테스트4"},{"sno":5,"name":"테스트5"},{"sno":6,"name":"테스트6"},{"sno":8,"name":"테스트8"}]
+    {"result":"S01","message":"[{"sno":1,"name":"테스트1"},{"sno":2,"name":"테스트2"},{"sno":3,"name":"테스트3"},{"sno":4,"name":"테스트4"},{"sno":5,"name":"테스트5"},{"sno":6,"name":"테스트6"},{"sno":8,"name":"테스트8"}]"}
+    
 
 
 > 해당 테이블이 존재하지 않는 경우
 
-    failure: Data doesn't exist
+    {"result":"E01","message":"테이블을 입력하지 않았습니다."}
+    {"result":"E02","message":"데이터베이스 이름을 입력하지 않았습니다."}
+    {"result":"E03","message":"테이블이 존재하지 않습니다."}
+    {"result":"E04","message":"SQL 문법 오류입니다."}
     
 -----
 
