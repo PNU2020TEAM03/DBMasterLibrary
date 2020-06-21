@@ -35,6 +35,7 @@ DBMaster 라이브러리를 사용하기 위한 방법입니다.
 
 
 > Step 1. Add the JitPack repository to your build file. 
+
 > Add it in your root build.gradle at the end of repositories:
 
     allprojects {
