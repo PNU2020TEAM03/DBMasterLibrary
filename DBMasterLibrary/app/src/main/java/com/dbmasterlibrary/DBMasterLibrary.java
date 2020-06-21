@@ -838,9 +838,10 @@ public class DBMasterLibrary {
         return dataArrayList;
     }
 
-    public String join(String dbName, String tableName, String joinTable, String joiningCol) throws JSONException, IOException {
-        String result = null;
+    public ArrayList<JSONObject> join(String dbName, String tableName, String joinTable, String joiningCol) throws JSONException, IOException {
 
+        ArrayList<JSONObject> dataArrayList = new ArrayList<>();
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -866,13 +867,15 @@ public class DBMasterLibrary {
 
 
         if (jsonObject.getString("result").equals("S01")) {
-            result = jsonObject.getString("value");
+            dataArrayList = getJSONArrayList(jsonObject);
         }
 
         if (jsonObject.getString("result").equals("E02")) {
-            result = "failure: Unknown Column";
+            resultObject.put("result", "E01");
+            resultObject.put("message","Unknown Column '" + joiningCol + "'");
+            dataArrayList.add(resultObject);
         }
-        return result;
+        return dataArrayList;
     }
 
     private ArrayList<JSONObject> getJSONArrayList(JSONObject responseObject) throws JSONException {
