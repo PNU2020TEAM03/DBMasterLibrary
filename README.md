@@ -7,6 +7,7 @@
 
 ----
 ## 목차
+* [라이브러리 사용 방법](#라이브러리-사용-방법)
 * [DB 서버 연결](#DB-서버-연결)
 * [테이블 생성 함수](#테이블-생성-함수)
 * [회원가입 함수](#회원가입-함수)
@@ -34,7 +35,8 @@ DBMaster 라이브러리를 사용하기 위한 방법입니다.
 
 
 > Step 1. Add the JitPack repository to your build file. 
-Add it in your root build.gradle at the end of repositories:
+
+> Add it in your root build.gradle at the end of repositories:
 
     allprojects {
         repositories {
