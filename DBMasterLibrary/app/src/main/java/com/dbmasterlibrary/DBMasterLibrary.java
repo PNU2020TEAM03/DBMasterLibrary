@@ -245,7 +245,7 @@ public class DBMasterLibrary {
         }
         // 테이블 정보 받기 실패
         if (jsonObject.getString("result").equals("E01")) {
-            resultObject.put("result", "S01");
+            resultObject.put("result", "E01");
             resultObject.put("message", "정보가 없습니다.");
 
         }
