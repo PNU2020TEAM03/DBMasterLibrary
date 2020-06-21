@@ -560,8 +560,8 @@ public class DBMasterLibrary {
         return result;
     }
 
-    public String getTableData(String dbName, String tableName) throws JSONException, IOException {
-        String result = null;
+    public JSONObject getTableData(String dbName, String tableName) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
         OkHttpClient client = new OkHttpClient();
         
         String strApi = "/v1/column/get-all";
@@ -583,14 +583,28 @@ public class DBMasterLibrary {
       //  JSONArray jsonArray = jsonObject.getJSONArray("value");
 
         if(jsonObject.getString("result").equals("S01")) {
-            result = jsonObject.getString("value");
+            resultObject.put("result", "S01");
+            resultObject.put("message",jsonObject.getString("value"));
         }
 
+        else if(jsonObject.getString("result").equals("E01")) {
+            resultObject.put("result", "E01");
+            resultObject.put("message","테이블을 입력하지 않았습니다.");
+        }
         else if(jsonObject.getString("result").equals("E02")) {
-            result = "failure: Table doesn't exist";
+            resultObject.put("result", "E02");
+            resultObject.put("message","데이터베이스 이름을 입력하지 않았습니다.");
+        }
+        else if(jsonObject.getString("result").equals("E03")) {
+            resultObject.put("result", "E03");
+            resultObject.put("message","테이블이 존재하지 않습니다.");
+        }
+        else if(jsonObject.getString("result").equals("E04")) {
+            resultObject.put("result", "E04");
+            resultObject.put("message","SQL 문법 오류입니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     public JSONObject userEmailAuth(String email) throws JSONException, IOException {
