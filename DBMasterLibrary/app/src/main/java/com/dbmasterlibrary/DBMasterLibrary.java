@@ -492,8 +492,8 @@ public class DBMasterLibrary {
         return result;
     }
 
-    public String insertData(String dbName, String tableName, String insert) throws JSONException, IOException {
-        String result = null;
+    public JSONObject insertData(String dbName, String tableName, String insert) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
         OkHttpClient client = new OkHttpClient();
 
         String strApi = "/v1/table/insert";
@@ -516,14 +516,16 @@ public class DBMasterLibrary {
         JSONObject jsonObject = new JSONObject(responseToString);
 
         if(jsonObject.getString("result").equals("S01")) {
-            result = jsonObject.getString("message");
+            resultObject.put("result", jsonObject.getString("result"));
+            resultObject.put("message",jsonObject.getString("message"));
         }
-        else if(jsonObject.getString("status").equals(500)) {
-            result = "failure: Duplicate entry";
+        else {
+            resultObject.put("result", jsonObject.getString("result"));
+            resultObject.put("message",jsonObject.getString("message"));
         }
 
 
-        return result;
+        return resultObject;
     }
 
     public String deleteData(String dbName, String tableName, String keyName, String keyValue) throws JSONException, IOException {
