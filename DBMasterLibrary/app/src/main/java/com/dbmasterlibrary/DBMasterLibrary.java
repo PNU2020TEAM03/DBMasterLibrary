@@ -828,6 +828,43 @@ public class DBMasterLibrary {
         return resultObject;
     }
 
+    public String join(String dbName, String tableName, String joinTable, String joiningCol) throws JSONException, IOException {
+        String result = null;
+
+
+        OkHttpClient client = new OkHttpClient();
+
+        String strApi = "/v1/table/join";
+
+        final JSONObject object = new JSONObject();
+        object.put("name", dbName);
+        object.put("tableName", tableName);
+        object.put("joinTable", joinTable);
+        object.put("joiningColumn", joiningCol);
+
+
+        Request request = new Request.Builder()
+                .url(baseUrl + strApi)
+                .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        String responseDataString = response.body().string();
+
+        JSONObject jsonObject = new JSONObject(responseDataString);
+
+
+        if (jsonObject.getString("result").equals("S01")) {
+            result = jsonObject.getString("value");
+        }
+    
+        if (jsonObject.getString("result").equals("E02")) {
+            result = "failure: Unknown Column";
+        }
+        return result;
+    }
+
     private ArrayList<JSONObject> getJSONArrayList(JSONObject responseObject) throws JSONException {
 
         ArrayList<JSONObject> dataArrayList = new ArrayList<>();
