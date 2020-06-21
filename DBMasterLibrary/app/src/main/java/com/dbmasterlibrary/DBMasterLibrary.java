@@ -457,7 +457,9 @@ public class DBMasterLibrary {
         return resultObject;
     }
 
-    public JSONObject tableDataSearch(String userId, String tableName, String keyword) throws JSONException, IOException {
+    public ArrayList<JSONObject> tableDataSearch(String userId, String tableName, String keyword) throws JSONException, IOException {
+
+        ArrayList<JSONObject> dataArrayList = new ArrayList<>();
         JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
@@ -483,16 +485,16 @@ public class DBMasterLibrary {
 
         // 테이블 내 데이터 검색에 성공한 경우
         if (jsonObject.getString("result").equals("S01")) {
-            resultObject.put("result", jsonObject.getString("result"));
-            resultObject.put("message",jsonObject.getString("value"));
+            dataArrayList = getJSONArrayList(jsonObject);
         }
         // 테이블 내 데이터 검색에 실패한 경우
         else {
             resultObject.put("result", jsonObject.getString("result"));
             resultObject.put("message",jsonObject.getString("message"));
+            dataArrayList.add(resultObject);
         }
 
-        return resultObject;
+        return dataArrayList;
     }
 
     public JSONObject insertData(String dbName, String tableName, String insert) throws JSONException, IOException {
