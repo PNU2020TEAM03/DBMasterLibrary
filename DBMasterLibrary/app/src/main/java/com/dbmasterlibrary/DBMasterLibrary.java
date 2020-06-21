@@ -795,7 +795,9 @@ public class DBMasterLibrary {
         return result;
     }
 
-    public JSONObject tableColumnSort(String userId, String tableName, String sortColumn, String direction) throws JSONException, IOException {
+    public ArrayList<JSONObject> tableColumnSort(String userId, String tableName, String sortColumn, String direction) throws JSONException, IOException {
+
+        ArrayList<JSONObject> dataArrayList = new ArrayList<>();
         JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
@@ -822,19 +824,18 @@ public class DBMasterLibrary {
 
         // 테이블 특정 칼럼 정렬에 성공한 경우
         if (jsonObject.getString("result").equals("S01")) {
-            resultObject.put("result", "S01");
-            resultObject.put("message",jsonObject.getString("value"));
+            dataArrayList = getJSONArrayList(jsonObject);
 
         }
 
         // 테이블 특정 칼럼 정렬에 실패한 경우
         if (jsonObject.getString("result").equals("E02") ) {
             resultObject.put("result", "E01");
-            resultObject.put("message","java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'DESCa' at line 1");
-
+            resultObject.put("message",jsonObject.getString("message"));
+            dataArrayList.add(resultObject);
         }
 
-        return resultObject;
+        return dataArrayList;
     }
 
     public String join(String dbName, String tableName, String joinTable, String joiningCol) throws JSONException, IOException {
