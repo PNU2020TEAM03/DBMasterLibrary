@@ -217,7 +217,8 @@ public class DBMasterLibrary {
     }
 
 
-    public JSONObject getTableInfo(String tableName, String userId) throws JSONException, IOException {
+    public ArrayList<JSONObject> getTableInfo(String tableName, String userId) throws JSONException, IOException {
+        ArrayList<JSONObject> dataArrayList = new ArrayList<>();
         JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
@@ -240,22 +241,22 @@ public class DBMasterLibrary {
 
         // 테이블 정보 받기 성공
         if (jsonObject.getString("result").equals("S01")) {
-            resultObject.put("result", "S01");
-            resultObject.put("message", jsonObject.getString("value"));
+            dataArrayList = getJSONArrayList(jsonObject);
         }
         // 테이블 정보 받기 실패
         if (jsonObject.getString("result").equals("E01")) {
             resultObject.put("result", "E01");
             resultObject.put("message", "정보가 없습니다.");
+            dataArrayList.add(resultObject);
 
         }
 
-        return resultObject;
+        return dataArrayList;
     }
 
     public JSONObject tableDrop(String userId, String tableName) throws JSONException, IOException {
         JSONObject resultObject = new JSONObject();
-
+ 
         OkHttpClient client = new OkHttpClient();
 
         String strApi = "/v1/table/drop";
@@ -858,7 +859,7 @@ public class DBMasterLibrary {
         if (jsonObject.getString("result").equals("S01")) {
             result = jsonObject.getString("value");
         }
-    
+
         if (jsonObject.getString("result").equals("E02")) {
             result = "failure: Unknown Column";
         }
