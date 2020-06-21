@@ -286,17 +286,18 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 >테이블 정보를 받아온 경우
     
-
-    [{"columnName":"sno","datatype":"4","columnsize":"10","decimaldigits":null},{"columnName":"name","datatype":"1","columnsize":"10","decimaldigits":null}]
+    {"result":"S01","message":"[{"columnName":"sno","datatype":"4","columnsize":"10","decimaldigits":null},{"columnName":"name","datatype":"1","columnsize":"10","decimaldigits":null}]"}
+    
 
 
 >테이블 정보를 받아오는데 실패한 경우
 
 
-    failure
+    {"result":"E01","error":"정보가 없습니다."}
 
 
 ----
