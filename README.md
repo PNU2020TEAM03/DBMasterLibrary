@@ -558,16 +558,23 @@ DBMaster 라이브러리를 사용하기 위한 방법입니다.
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 > 테이블 칼럼 insert 성공
 
-    insert 성공했습니다.
+    {"result":"S01","message":"insert 성공했습니다."}
 
 
-> 테이블 내 중복되는 insert 값이 존재하는 경우
+> 테이블 칼럼 insert 실패한 경우
 
 
-    failure : Duplicate entry
+    {"result":"E01","message":"테이블을 입력하지 않았습니다."}
+    {"result":"E02","message":"데이터베이스 이름을 입력하지 않았습니다."}
+    {"result":"E03","message":"입력할 데이터가 비어있습니다."}
+    {"result":"E04","message":"SQL 문법 오류입니다."}
+    {"result":"E05","message":"입력된 데이터 타입이 칼럼 타입과 다릅니다."}
+    {"result":"E06","message":"이미 입력된 데이터 입니다."}
+    
    
 ----
 
