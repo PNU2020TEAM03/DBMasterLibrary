@@ -32,28 +32,23 @@
 ## 라이브러리 사용 방법
 DBMaster 라이브러리를 사용하기 위한 방법입니다.
 
-> 프로젝트 수준의 gradle
+
+> Step 1. Add the JitPack repository to your build file
+> Add it in your root build.gradle at the end of repositories:
 
     allprojects {
         repositories {
-            google()
-            jcenter()
+            ...
             maven { url 'https://jitpack.io' }
         }
     }
     
-maven { url 'https://jitpack.io' } 코드를 추가합니다.
 
-
-
-> app 수준의 gradle
+> Step 2. Add the dependency
 
     dependencies {
-        implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1'
+        implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.1.1'
     }
-
-implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가합니다.
-
 
 
 
