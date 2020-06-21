@@ -516,18 +516,23 @@ DBMaster 라이브러리를 사용하기 위한 방법입니다.
 
 
 **응답 결과**
-  
+
+* 리턴 타입 : JSONObject
 
 > 테이블 내 데이터 검색에 성공한 경우
     
-
-    [{"sno":"3","name":"테스트3"}]
+    {"result":"S01","message":"[{"sno":"3","name":"테스트3"}]"}
+    
 
 
 > 테이블 내 데이터 검색에 실패한 경우
 
 
-    failure : Table 'test.testTable' doesn't exist
+    {"result":"E01","message":"name 값이 입력되지 않았습니다."}
+    {"result":"E02","message":"tableName 값이 입력되지 않았습니다."}
+    {"result":"E03","message":"keyword 값이 입력되지 않았습니다."}
+    {"result":"E04","message":"테이블 또는 데이터베이스가 존재하지 않습니다."}
+    {"result":"E05","message":"java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '!.tableB' at line 1"}
 
 
 
