@@ -217,8 +217,8 @@ public class DBMasterLibrary {
     }
 
 
-    public String getTableInfo(String tableName, String userId) throws JSONException, IOException {
-        String result = null;
+    public JSONObject getTableInfo(String tableName, String userId) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -240,14 +240,17 @@ public class DBMasterLibrary {
 
         // 테이블 정보 받기 성공
         if (jsonObject.getString("result").equals("S01")) {
-            result = jsonObject.getString("value");
+            resultObject.put("result", "S01");
+            resultObject.put("message", jsonObject.getString("value"));
         }
         // 테이블 정보 받기 실패
         if (jsonObject.getString("result").equals("E01")) {
-            result = "failure: data doesn't exist";
+            resultObject.put("result", "S01");
+            resultObject.put("message", "정보가 없습니다.");
+
         }
 
-        return result;
+        return resultObject;
     }
 
     public JSONObject tableDrop(String userId, String tableName) throws JSONException, IOException {
