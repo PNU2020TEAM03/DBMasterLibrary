@@ -927,4 +927,4 @@ join할 두 개의 테이블 모두 기준값이 되는 column값이 존재해�
 
 > 존재하지 않는 joining column
 
-    failure: Unknown Column
+    {"result":"E02","message":"Unknown Column 'id'"}
