@@ -626,8 +626,8 @@ public class DBMasterLibrary {
         return resultObject;
     }
 
-    public String tableDataExport(String userId, String tableName, String email) throws JSONException, IOException {
-        String result = null;
+    public JSONObject tableDataExport(String userId, String tableName, String email) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -653,15 +653,17 @@ public class DBMasterLibrary {
 
         // 파일을 메일로 전송 성공한 경우
         if (jsonObject.getString("result").equals("S01")) {
-            result = "파일이 이메일로 전송되었습니다.";
+            resultObject.put("result", "S01");
+            resultObject.put("message","파일이 이메일로 전송되었습니다.");
         }
         // 파일을 메일로 전송 실패한 경우
         if (jsonObject.getString("result").equals("E01") ) {
-            result = "failure : " + " Table  "  + userId + "." + tableName + "' doesn't exist";
+            resultObject.put("result", "E01");
+            resultObject.put("message"," Table  "  + userId + "." + tableName + "' doesn't exist");
         }
 
 
-        return result;
+        return resultObject;
     }
 
     public ArrayList<String> getIndexData(String tableData, int index) throws JSONException {
