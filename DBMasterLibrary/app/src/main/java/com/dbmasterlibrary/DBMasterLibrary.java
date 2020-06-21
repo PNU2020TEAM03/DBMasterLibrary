@@ -830,7 +830,7 @@ public class DBMasterLibrary {
 
         // 테이블 특정 칼럼 정렬에 실패한 경우
         if (jsonObject.getString("result").equals("E02") ) {
-            resultObject.put("result", "E01");
+            resultObject.put("result", "E02");
             resultObject.put("message",jsonObject.getString("message"));
             dataArrayList.add(resultObject);
         }
@@ -871,7 +871,7 @@ public class DBMasterLibrary {
         }
 
         if (jsonObject.getString("result").equals("E02")) {
-            resultObject.put("result", "E01");
+            resultObject.put("result", "E02");
             resultObject.put("message","Unknown Column '" + joiningCol + "'");
             dataArrayList.add(resultObject);
         }
