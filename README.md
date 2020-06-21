@@ -719,17 +719,18 @@ implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.0.1' 코드를 추가
 
 **응답 결과**
   
+* 리턴 타입 : JSONObject
 
 > 파일을 메일로 전송 성공한 경우
     
 
-    파일이 이메일로 전송되었습니다.
+    {"result":"S01","message":"파일이 이메일로 전송되었습니다."}
 
 
 > 파일을 메일로 전송 실패한 경우
 
+    {"result":"E01","message":"Table 'test2.testTable' doesn't exist"}
 
-    Table 'test2.testTable' doesn't exist
 
 
 
