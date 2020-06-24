@@ -533,8 +533,8 @@ public class DBMasterLibrary {
         return resultObject;
     }
 
-    public String deleteData(String dbName, String tableName, String keyName, String keyValue) throws JSONException, IOException {
-        String result = null;
+    public JSONObject deleteData(String dbName, String tableName, String keyName, String keyValue) throws JSONException, IOException {
+        JSONObject resultObject = new JSONObject();
         OkHttpClient client = new OkHttpClient();
 
         String strApi = "/v1/column/delete";
@@ -557,14 +557,36 @@ public class DBMasterLibrary {
         JSONObject jsonObject = new JSONObject(responseToString);
 
         if(jsonObject.getString("result").equals("S01")) {
-            result = "table data deleted";
+            resultObject.put("result", "S01");
+            resultObject.put("message","삭제되었습니다.");
         }
 
         else if(jsonObject.getString("result").equals("E01")) {
-            result = "Failure: Unknown Data";
+            resultObject.put("result", "E01");
+            resultObject.put("message","tableName 값이 입력되지 않았습니다.");
+        }
+        else if(jsonObject.getString("result").equals("E02")) {
+            resultObject.put("result", "E02");
+            resultObject.put("message","name 값이 입력되지 않았습니다.");
+        }
+        else if(jsonObject.getString("result").equals("E03")) {
+            resultObject.put("result", "E03");
+            resultObject.put("message","primary_key_name 값이 입력되지 않았습니다.");
+        }
+        else if(jsonObject.getString("result").equals("E04")) {
+            resultObject.put("result", "E04");
+            resultObject.put("message","primary_key_value 값이 입력되지 않았습니다.");
+        }
+        else if(jsonObject.getString("result").equals("E05")) {
+            resultObject.put("result", "E05");
+            resultObject.put("message","테이블이 존재하지 않습니다");
+        }
+        else if(jsonObject.getString("result").equals("E06")) {
+            resultObject.put("result", "E06");
+            resultObject.put("message","칼럼이 존재하지 않습니다.");
         }
 
-        return result;
+        return resultObject;
     }
 
     public ArrayList<JSONObject> getTableData(String dbName, String tableName) throws JSONException, IOException {
