@@ -613,13 +613,18 @@ DBMaster 라이브러리를 사용하기 위한 방법입니다.
 
 > 테이블 데이터 delete 성공
 
-    table data deleted
+    {"result":"S01","message":"삭제되었습니다."}
 
 
 > 테이블 데이터 delete 실패
 
 
-    Failure: Unknown Data
+    {"result":"E01","message":"tableName 값이 입력되지 않았습니다.."}
+    {"result":"E02","message":"name 값이 입력되지 않았습니다."}
+    {"result":"E03","message":"primary_key_name 값이 입력되지 않았습니다."}
+    {"result":"E04","message":"primary_key_value 값이 입력되지 않았습니다."}
+    {"result":"E05","message":"테이블이 존재하지 않습니다."}
+    {"result":"E06","message":"칼럼이 존재하지 않습니다."}
    
 ----
 
