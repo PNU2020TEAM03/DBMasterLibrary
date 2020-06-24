@@ -176,9 +176,10 @@ public class DBMasterLibrary {
         return resultObject;
     }
 
-    public ArrayList<String> getAllTables(String dbName) throws JSONException, IOException {
-        //String result = null;
+    public JSONObject getAllTables(String dbName) throws JSONException, IOException {
+
         ArrayList<String> result = new ArrayList<>();
+        JSONObject resultObject = new JSONObject();
         OkHttpClient client = new OkHttpClient();
 
         String strApi = "/v1/table/all-tables";
@@ -192,7 +193,6 @@ public class DBMasterLibrary {
                 .post(RequestBody.create(MediaType.parse("application/json"), String.valueOf(object)))
                 .build();
 
-
         Response response = client.newCall(request).execute();
 
         String responseToString = response.body().string();
@@ -200,20 +200,20 @@ public class DBMasterLibrary {
         JSONObject jsonObject = new JSONObject(responseToString);
         JSONArray jsonArray = jsonObject.getJSONArray("value");
 
-        String resultMessage = null;
         if(jsonObject.getString("value").isEmpty()) {
-            resultMessage = "failure: No existing table";
-            result.add(resultMessage);
+            resultObject.put("result","");
+            resultObject.put("message", "테이블이 존재하지 않습니다.");
         }
         else {
-            //result = jsonObject.getString("value");
             for(int i=0; i<jsonArray.length(); i++) {
                 result.add(jsonArray.getString(i));
             }
+            resultObject.put("result","S01");
+            resultObject.put("value", result);
 
         }
 
-        return result;
+        return resultObject;
     }
 
 
@@ -780,9 +780,9 @@ public class DBMasterLibrary {
         return resultObject;
     }
 
-    public String getSelectQuery(String dbName, String tableName, String query ) throws IOException, JSONException {
-        String result = null;
-
+    public ArrayList<JSONObject> getSelectQuery(String dbName, String tableName, String query ) throws IOException, JSONException {
+        JSONObject resultObject = new JSONObject();
+        ArrayList<JSONObject> dataArrayList = new ArrayList<>();
         OkHttpClient client = new OkHttpClient();
         
         String strApi = "/v1/query/custom";
@@ -807,14 +807,36 @@ public class DBMasterLibrary {
 
         // 테이블 정보 받기 성공
         if (jsonObject.getString("result").equals("S01")) {
-            result = jsonObject.getString("value");
+            dataArrayList = getJSONArrayList(jsonObject);
         }
         // 테이블 정보 받기 실패
-        if (jsonObject.getString("result").equals("E02")) {
-            result = "failure: error in SQL syntax";
+        else if (jsonObject.getString("result").equals("E01")) {
+            resultObject.put("result", "E01");
+            resultObject.put("message","name 값이 입력되지 않았습니다.");
+            dataArrayList.add(resultObject);
+        }
+        else if (jsonObject.getString("result").equals("E02")) {
+            resultObject.put("result", "E02");
+            resultObject.put("message","tableName 값이 입력되지 않았습니다.");
+            dataArrayList.add(resultObject);
+        }
+        else if (jsonObject.getString("result").equals("E03")) {
+            resultObject.put("result", "E03");
+            resultObject.put("message","query 값이 입력되지 않았습니다.");
+            dataArrayList.add(resultObject);
+        }
+        else if (jsonObject.getString("result").equals("E04")) {
+            resultObject.put("result", "E04");
+            resultObject.put("message","테이블 또는 데이터베이스가 존재하지 않습니다.");
+            dataArrayList.add(resultObject);
+        }
+        else if (jsonObject.getString("result").equals("E05")) {
+            resultObject.put("result", "E05");
+            resultObject.put("message","SQL 문법 오류");
+            dataArrayList.add(resultObject);
         }
 
-        return result;
+        return dataArrayList;
     }
 
     public ArrayList<JSONObject> tableColumnSort(String userId, String tableName, String sortColumn, String direction) throws JSONException, IOException {
