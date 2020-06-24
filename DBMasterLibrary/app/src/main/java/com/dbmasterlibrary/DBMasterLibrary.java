@@ -579,7 +579,7 @@ public class DBMasterLibrary {
         }
         else if(jsonObject.getString("result").equals("E05")) {
             resultObject.put("result", "E05");
-            resultObject.put("message","테이블이 존재하지 않습니다");
+            resultObject.put("message","테이블이 존재하지 않습니다.");
         }
         else if(jsonObject.getString("result").equals("E06")) {
             resultObject.put("result", "E06");
