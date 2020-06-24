@@ -49,7 +49,7 @@ DBMaster 라이브러리를 사용하기 위한 방법입니다.
 > Step 2. Add the dependency
 
     dependencies {
-        implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.1.2'
+        implementation 'com.github.PNU2020TEAM03:DBMasterLibrary:0.1.3'
     }
 
 
